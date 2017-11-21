@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"os"
 
-	log "github.com/Sirupsen/logrus"
 	"github.com/gorilla/mux"
 	authnv1 "github.com/rancher/types/apis/authentication.cattle.io/v1"
+	log "github.com/sirupsen/logrus"
 	"github.com/urfave/cli"
 
 	"k8s.io/client-go/rest"
@@ -48,7 +48,7 @@ func StartService(c *cli.Context) {
 	router := mux.NewRouter().StrictSlash(true)
 	router.Methods("POST").Path("/v1/token").Handler(http.HandlerFunc(CreateToken))
 
-	log.Info("Listening on 9998")
+	log.Info("Listening on 9998", client)
 	log.Fatal(http.ListenAndServe(":9998", router))
 }
 
