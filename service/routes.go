@@ -25,7 +25,7 @@ func NewRouter() *mux.Router {
 	//router.Methods("POST").Path("/v1/config").Handler(api.ApiHandler(schemas, http.HandlerFunc(UpdateConfig)))
 	//router.Methods("GET").Path("/v1/config").Handler(api.ApiHandler(schemas, http.HandlerFunc(GetConfig)))
 
-	router.Methods("GET").Path("/v1/identities/me").Handler(http.HandlerFunc(GetIdentities))
+	router.Methods("GET").Path("/v1/identities").Handler(http.HandlerFunc(GetIdentities))
 	//router.Methods("GET").Path("/v1/identities").Handler(api.ApiHandler(schemas, http.HandlerFunc(SearchIdentities)))
 
 	return router

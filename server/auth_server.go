@@ -165,7 +165,7 @@ func DeleteToken(tokenKey string) (int, error) {
 func GetIdentities(tokenKey string) ([]model.Identity, int, error) {
 	var identities []model.Identity
 
-	token, status, err := GetToken(tokenKey)
+	/*token, status, err := GetToken(tokenKey)
 
 	if err != nil {
 		return identities, 401, err
@@ -174,20 +174,26 @@ func GetIdentities(tokenKey string) ([]model.Identity, int, error) {
 		identities = append(identities, token.GroupIdentities...)
 
 		return identities, status, nil
-	}
+	}*/
+
+	identities = append(identities, getUserIdentity())
+	identities = append(identities, getGroupIdentities()...)
+
+	return identities, 0, nil
 
 }
 
 func getUserIdentity() model.Identity {
 
 	identity := model.Identity{
-		ExternalId:     "cn=dummy,dc=tad,dc=rancher,dc=io",
-		ExternalIdType: "ActiveDirectory",
-		Login:          "dummy",
-		Name:           "Dummy User",
+		ExternalId:     "ldap://cn=dummy,dc=tad,dc=rancher,dc=io",
+		Name:           "dummy",
+		DisplayName:    "Dummy User",
 		ProfilePicture: "",
 		ProfileUrl:     "",
-		IsUser:         true,
+		Kind:           "user",
+		Me:             true,
+		MemberOf:       true,
 	}
 
 	return identity
@@ -198,23 +204,25 @@ func getGroupIdentities() []model.Identity {
 	var identities []model.Identity
 
 	identity1 := model.Identity{
-		ExternalId:     "cn=group1,dc=tad,dc=rancher,dc=io",
-		ExternalIdType: "ActiveDirectory",
-		Login:          "",
+		ExternalId:     "ldap://cn=group1,dc=tad,dc=rancher,dc=io",
+		DisplayName:    "Admin group",
 		Name:           "Administrators",
 		ProfilePicture: "",
 		ProfileUrl:     "",
-		IsUser:         false,
+		Kind:           "group",
+		Me:             false,
+		MemberOf:       false,
 	}
 
 	identity2 := model.Identity{
-		ExternalId:     "cn=group2,dc=tad,dc=rancher,dc=io",
-		ExternalIdType: "ActiveDirectory",
-		Login:          "",
+		ExternalId:     "ldap://cn=group2,dc=tad,dc=rancher,dc=io",
+		DisplayName:    "Dev group",
 		Name:           "Developers",
 		ProfilePicture: "",
 		ProfileUrl:     "",
-		IsUser:         false,
+		Kind:           "group",
+		Me:             false,
+		MemberOf:       false,
 	}
 
 	identities = append(identities, identity1)
