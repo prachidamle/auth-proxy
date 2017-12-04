@@ -9,5 +9,5 @@ type Identity struct {
 	ProfileUrl     string `json:"profileUrl,omitempty"`
 	Kind           string `json:"kind,omitempty"`
 	Me             bool   `json:"me,omitempty"`
-	MemberOf       bool   `json:"me,omitempty"`
+	MemberOf       bool   `json:"memberOf,omitempty"`
 }
