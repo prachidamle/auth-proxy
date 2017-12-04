@@ -10,7 +10,7 @@ A microservice that does micro things.
 
 ## Running
 
-`./bin/auth-proxy`
+`./bin/auth-proxy --cluster-config=/Users/prachi/.kube/config --listen=:9998`
 
 ## License
 Copyright (c) 2014-2016 [Rancher Labs, Inc.](http://rancher.com)
