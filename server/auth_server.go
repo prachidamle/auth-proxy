@@ -193,7 +193,7 @@ func getUserIdentity() model.Identity {
 		ProfileUrl:     "",
 		Kind:           "user",
 		Me:             true,
-		MemberOf:       true,
+		MemberOf:       false,
 	}
 
 	return identity
@@ -211,7 +211,7 @@ func getGroupIdentities() []model.Identity {
 		ProfileUrl:     "",
 		Kind:           "group",
 		Me:             false,
-		MemberOf:       false,
+		MemberOf:       true,
 	}
 
 	identity2 := model.Identity{
@@ -222,7 +222,7 @@ func getGroupIdentities() []model.Identity {
 		ProfileUrl:     "",
 		Kind:           "group",
 		Me:             false,
-		MemberOf:       false,
+		MemberOf:       true,
 	}
 
 	identities = append(identities, identity1)
