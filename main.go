@@ -4,8 +4,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/rancher/auth-proxy/server"
-	"github.com/rancher/auth-proxy/service"
+	"github.com/rancher/auth-proxy/api"
 	log "github.com/sirupsen/logrus"
 	"github.com/urfave/cli"
 )
@@ -29,8 +28,8 @@ func main() {
 			Usage: "name of the cluster",
 		},
 		cli.StringFlag{
-			Name:  "listen",
-			Usage: "port to listen on",
+			Name:  "httpHost",
+			Usage: "host:port to listen on",
 		},
 	}
 
@@ -39,7 +38,10 @@ func main() {
 
 func StartService(c *cli.Context) {
 
-	server.SetEnv(c)
+	handler, err := api.NewTokenAndIdentityAPIHandler(c.String("cluster-config"), c.String("cluster-config"), "")
+	if err != nil {
+		log.Fatalf("Failed to get tokenAndIdentity handler: %v", err)
+	}
 
 	if c.GlobalBool("debug") {
 		log.SetLevel(log.DebugLevel)
@@ -52,9 +54,13 @@ func StartService(c *cli.Context) {
 
 	log.Info("Starting Rancher Auth proxy")
 
-	router := service.NewRouter()
-
-	log.Info("Listening on ", c.GlobalString("listen"))
-	log.Fatal(http.ListenAndServe(c.GlobalString("listen"), router))
+	httpHost := c.GlobalString("httpHost")
+	server := &http.Server{
+		Handler: handler,
+		Addr:    httpHost,
+	}
+	log.Infof("Starting http server listening on %v.", httpHost)
+	err = server.ListenAndServe()
+	log.Infof("https server exited. Error: %v", err)
 
 }
