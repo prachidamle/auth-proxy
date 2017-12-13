@@ -15,29 +15,40 @@ A microservice that does micro things.
 ## API support
 
 1) User Login: 
-POST /v3/tokens?action=login
-
-JSON Input: github.com/rancher/types/apis/management.cattle.io/v3.LoginInput{}
-JSON Output: github.com/rancher/types/apis/management.cattle.io/v3.Token{}
+   
+   POST /v3/tokens?action=login
+   
+   JSON Input: github.com/rancher/types/apis/management.cattle.io/v3.LoginInput{}
+   
+   JSON Output: github.com/rancher/types/apis/management.cattle.io/v3.Token{}
 
 2) User Logout: 
-POST /v3/tokens?action=logout
-Set Valid login TokenID in cookie 'rAuthnSessionToken' to delete the token
+   
+   POST /v3/tokens?action=logout
+   
+   Set Valid login TokenID in cookie 'rAuthnSessionToken' to delete the token
 
 3) Create Derived Token: 
-POST /v3/tokens
+   
+   POST /v3/tokens
 
-4) Set Valid login TokenID in cookie 'rAuthnSessionToken'
-JSON Input: github.com/rancher/types/apis/management.cattle.io/v3.Token{}
-JSON Output: github.com/rancher/types/apis/management.cattle.io/v3.Token{}
+   Set Valid login TokenID in cookie 'rAuthnSessionToken'
+   
+   JSON Input: github.com/rancher/types/apis/management.cattle.io/v3.Token{}
+   
+   JSON Output: github.com/rancher/types/apis/management.cattle.io/v3.Token{}
 
-5) List Tokens: 
-GET /v3/tokens
-Set Valid login TokenID in cookie 'rAuthnSessionToken'
+4) List Tokens: 
+   
+   GET /v3/tokens
+   
+   Set Valid login TokenID in cookie 'rAuthnSessionToken'
 
-6) List Identities:
-GET /v3/identities
-Set Valid login TokenID in cookie 'rAuthnSessionToken'
+5) List Identities:
+   
+   GET /v3/identities
+   
+   Set Valid login TokenID in cookie 'rAuthnSessionToken'
 
 
 
